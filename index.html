@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filtre de Contenu IA</title>
-    <link rel="manifest" href="pwa-manifest.json">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="/filtre-simple/pwa-manifest.json">
+    <link rel="stylesheet" href="/filtre-simple/styles.css">
     <meta name="theme-color" content="#4a90e2">
+    <base href="/filtre-simple/">
 </head>
 <body>
     <div class="container">
@@ -28,8 +29,20 @@
             </div>
         </div>
     </div>
-    <script src="nsfwjs.min.js"></script>
-    <script src="app.js"></script>
-    <script src="service-worker.js"></script>
+    <script src="/filtre-simple/nsfwjs.min.js"></script>
+    <script src="/filtre-simple/app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/filtre-simple/service-worker.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker enregistré avec succès:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Échec de l\'enregistrement du ServiceWorker:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

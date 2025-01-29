@@ -1,12 +1,13 @@
 const CACHE_NAME = 'filtre-ia-v1';
+const BASE_PATH = '/filtre-simple';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/nsfwjs.min.js',
-  '/icons/icon192.png',
-  '/icons/icon512.png'
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/styles.css`,
+  `${BASE_PATH}/app.js`,
+  `${BASE_PATH}/nsfwjs.min.js`,
+  `${BASE_PATH}/icons/icon192.png`,
+  `${BASE_PATH}/icons/icon512.png`
 ];
 
 self.addEventListener('install', (event) => {
