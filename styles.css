@@ -1,0 +1,31 @@
+.filtered-image {
+    filter: blur(30px);
+    transition: filter 0.3s ease;
+}
+
+.filtered-image:hover {
+    filter: blur(40px);
+}
+
+.filtered-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.filtered-warning {
+    background: rgba(255, 0, 0, 0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+    backdrop-filter: blur(5px);
+}

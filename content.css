@@ -1,0 +1,48 @@
+.blocked-image-container {
+    background-color: #000 !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 2147483647 !important;
+}
+
+.blocked-image-container * {
+    display: none !important;
+}
+
+.blocked-image-container::before {
+    content: 'Image bloquée' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    padding: 5px 10px !important;
+    border-radius: 3px !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    font-size: 14px !important;
+    color: white !important;
+    z-index: 2147483647 !important;
+}
+
+/* S'assurer que les images bloquées sont vraiment cachées */
+img[style*="display: none"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    z-index: -9999 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+}

@@ -1,0 +1,33 @@
+{
+    "rules": {
+        "contentFiltering": {
+            "enabled": true,
+            "blockAdult": true,
+            "blockViolence": true,
+            "blockHate": true,
+            "customBlockList": true,
+            "safeSearch": true
+        },
+        "notifications": {
+            "enabled": true,
+            "showBlockedAttempts": true
+        },
+        "whitelisting": {
+            "enabled": true,
+            "domains": [],
+            "keywords": []
+        },
+        "logging": {
+            "enabled": true,
+            "keepDays": 30,
+            "anonymize": true
+        }
+    },
+    "settings": {
+        "blockRedirects": true,
+        "blockPopups": true,
+        "strictMode": true,
+        "parentalControls": true
+    },
+    "lastUpdated": "2025-01-19T12:54:22+02:00"
+}

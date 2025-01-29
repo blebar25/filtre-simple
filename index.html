@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtre de Contenu IA</title>
+    <link rel="manifest" href="pwa-manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#4a90e2">
+</head>
+<body>
+    <div class="container">
+        <h1>Filtre de Contenu IA</h1>
+        <div class="controls">
+            <button id="toggleFilter">Activer/Désactiver le filtre</button>
+            <div class="status">
+                <span>Statut : </span>
+                <span id="filterStatus">Désactivé</span>
+            </div>
+        </div>
+        <div class="settings">
+            <h2>Paramètres</h2>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="nsfw"> 
+                    Bloquer le contenu NSFW
+                </label>
+            </div>
+        </div>
+    </div>
+    <script src="nsfwjs.min.js"></script>
+    <script src="app.js"></script>
+    <script src="service-worker.js"></script>
+</body>
+</html>
