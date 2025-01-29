@@ -1,11 +1,13 @@
 const CACHE_NAME = 'filtre-simple-v1';
+const BASE_PATH = '/filtre-simple';
+
 const urlsToCache = [
-  '.',
-  'index.html',
-  'app.js',
-  'styles.css',
-  'icon.png',
-  'manifest.json'
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/app.js`,
+  `${BASE_PATH}/styles.css`,
+  `${BASE_PATH}/icon.png`,
+  `${BASE_PATH}/manifest.json`
 ];
 
 self.addEventListener('install', event => {
@@ -13,24 +15,39 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Cache ouvert');
-        return cache.addAll(urlsToCache.map(url => new Request(url, {credentials: 'same-origin'})));
-      })
-      .catch(error => {
-        console.error('Erreur lors de la mise en cache:', error);
+        return Promise.all(
+          urlsToCache.map(url => 
+            fetch(url, {credentials: 'same-origin'})
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`Failed to fetch ${url}`);
+                }
+                return cache.put(url, response);
+              })
+              .catch(error => {
+                console.error(`Failed to cache ${url}:`, error);
+              })
+          )
+        );
       })
   );
 });
 
 self.addEventListener('fetch', event => {
+  // Ne pas intercepter les requêtes vers les CDN
+  if (event.request.url.includes('cdn.jsdelivr.net') || 
+      event.request.url.includes('storage.googleapis.com')) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => {
         if (response) {
           return response;
         }
-        return fetch(event.request).catch(error => {
-          console.error('Erreur lors de la récupération:', error);
-          return new Response('Erreur de connexion', {
+        return fetch(event.request).catch(() => {
+          return new Response('Offline', {
             status: 503,
             statusText: 'Service Unavailable'
           });

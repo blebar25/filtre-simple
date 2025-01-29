@@ -17,13 +17,21 @@ const threshold = 0.7; // Seuil de détection NSFW
 // Chargement du modèle NSFW
 async function loadModel() {
     try {
-        // Utiliser le modèle hébergé sur GitHub
-        model = await nsfwjs.load('https://raw.githubusercontent.com/infinitered/nsfwjs/master/example/nsfw_demo/public/model/');
+        // Utiliser un modèle alternatif hébergé sur un CDN plus stable
+        model = await nsfwjs.load('https://storage.googleapis.com/tfjs-models/savedmodel/nsfwjs/model.json');
         console.log('Modèle NSFW chargé avec succès');
         return true;
     } catch (error) {
         console.error('Erreur lors du chargement du modèle:', error);
-        return false;
+        // Essayer un autre CDN si le premier échoue
+        try {
+            model = await nsfwjs.load('https://cdn.jsdelivr.net/npm/nsfwjs@2.4.2/dist/nsfwjs-model/model.json');
+            console.log('Modèle NSFW chargé avec succès (source alternative)');
+            return true;
+        } catch (secondError) {
+            console.error('Erreur lors du chargement du modèle (source alternative):', secondError);
+            return false;
+        }
     }
 }
 
