@@ -1,14 +1,12 @@
-// Enregistrement du service worker
+// Enregistrement du Service Worker
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then((registration) => {
-                console.log('ServiceWorker enregistré avec succès:', registration.scope);
-            })
-            .catch((error) => {
-                console.log('Échec de l\'enregistrement du ServiceWorker:', error);
-            });
-    });
+    navigator.serviceWorker.register('service-worker.js')
+        .then(registration => {
+            console.log('ServiceWorker enregistré avec succès:', registration.scope);
+        })
+        .catch(error => {
+            console.error('Échec de l\'enregistrement du ServiceWorker:', error);
+        });
 }
 
 // Configuration
@@ -85,7 +83,7 @@ async function scanAndFilterImages() {
 }
 
 // Observer pour détecter les nouvelles images
-const observer = new MutationObserver((mutations) => {
+const observer = new MutationObserver(() => {
     if (isFilterActive) {
         scanAndFilterImages();
     }

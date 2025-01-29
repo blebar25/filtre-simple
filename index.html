@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtre de Contenu IA</title>
-    <link rel="manifest" href="/filtre-simple/pwa-manifest.json">
-    <link rel="stylesheet" href="/filtre-simple/styles.css">
+    <title>Filtre Simple</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nsfwjs@2.4.2/dist/nsfwjs.min.js"></script>
     <meta name="theme-color" content="#4a90e2">
     <base href="/filtre-simple/">
 </head>
 <body>
     <div class="container">
-        <h1>Filtre de Contenu IA</h1>
+        <h1>Filtre Simple</h1>
+        
         <div class="controls">
-            <button id="toggleFilter">Activer/Désactiver le filtre</button>
-            <div class="status">
-                <span>Statut : </span>
-                <span id="filterStatus">Désactivé</span>
-            </div>
+            <button id="toggleFilter">Activer le filtre</button>
+            <div class="status">Status: <span id="filterStatus">Désactivé</span></div>
         </div>
+
         <div class="settings">
             <h2>Paramètres</h2>
             <div class="setting-item">
                 <label>
-                    <input type="checkbox" id="nsfw"> 
+                    <input type="checkbox" id="nsfw" checked>
                     Bloquer le contenu NSFW
                 </label>
             </div>
         </div>
     </div>
-    <script src="/filtre-simple/nsfwjs.min.js"></script>
-    <script src="/filtre-simple/app.js"></script>
+
+    <script src="app.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
