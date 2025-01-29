@@ -17,16 +17,24 @@ const threshold = 0.7; // Seuil de détection NSFW
 // Chargement du modèle NSFW
 async function loadModel() {
     try {
-        model = await nsfwjs.load();
+        // Utiliser le modèle hébergé sur GitHub
+        model = await nsfwjs.load('https://raw.githubusercontent.com/infinitered/nsfwjs/master/example/nsfw_demo/public/model/');
         console.log('Modèle NSFW chargé avec succès');
+        return true;
     } catch (error) {
         console.error('Erreur lors du chargement du modèle:', error);
+        return false;
     }
 }
 
 // Fonction pour analyser une image
 async function analyzeImage(imgElement) {
-    if (!model) return null;
+    if (!model) {
+        console.log('Modèle non chargé, tentative de rechargement...');
+        const loaded = await loadModel();
+        if (!loaded) return null;
+    }
+    
     try {
         const predictions = await model.classify(imgElement);
         return predictions;
@@ -96,7 +104,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const nsfwCheckbox = document.getElementById('nsfw');
 
     // Charger le modèle au démarrage
-    await loadModel();
+    const modelLoaded = await loadModel();
+    if (!modelLoaded) {
+        filterStatus.textContent = 'Erreur de chargement';
+        filterStatus.style.color = 'red';
+        return;
+    }
 
     // Charger les paramètres sauvegardés
     const savedSettings = JSON.parse(localStorage.getItem('filterSettings')) || {

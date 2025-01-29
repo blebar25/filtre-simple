@@ -13,7 +13,10 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Cache ouvert');
-        return cache.addAll(urlsToCache);
+        return cache.addAll(urlsToCache.map(url => new Request(url, {credentials: 'same-origin'})));
+      })
+      .catch(error => {
+        console.error('Erreur lors de la mise en cache:', error);
       })
   );
 });
@@ -25,7 +28,13 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
-        return fetch(event.request);
+        return fetch(event.request).catch(error => {
+          console.error('Erreur lors de la récupération:', error);
+          return new Response('Erreur de connexion', {
+            status: 503,
+            statusText: 'Service Unavailable'
+          });
+        });
       })
   );
 });
